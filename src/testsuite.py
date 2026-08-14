@@ -20,7 +20,7 @@ def print_pointwise_rates(errs, print_it, get_list):
         p = -np.log2(ratio)
 
         if(print_it):
-            print(f"step: {i}; ratio = {ratio:.4f}; p ≈ {p:.3f}")
+            print(f"step: {i+1}; ratio = {ratio:.4f}; p ≈ {p:.3f}")
 
         if(get_list):
             result.append(p)
