@@ -97,7 +97,7 @@ def plot_results(f, method):
 def print_errors(f,method):
     #compute error(s)
     exact_soln = func.EXACT_SOLUTIONS[f]
-    print(f"Erros for {f} using {method}:")
+    print(f"Errors for {f.__name__} using {method.__name__}:")
     for q in range(2,8):
             x,u = method(f,q)
 
