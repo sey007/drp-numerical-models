@@ -1,0 +1,230 @@
+\documentclass[12pt,letterpaper]{article}
+
+\pagestyle{empty}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{mathtools,amsmath,amssymb,amsthm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{braket}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{cancel}
+\usepackage{listings} % for code
+
+\usepackage[most]{tcolorbox}
+
+\setlist[itemize]{topsep=4pt,itemsep=2pt}
+
+\newtcolorbox{solution}{
+    title={Solution},
+    colback=white,
+    colframe=gray,
+    coltitle=black,
+    fonttitle=\bfseries,
+    breakable,
+    enhanced,
+    boxrule=0.5pt,
+    arc=2mm
+}
+
+\begin{document}
+
+\textbf{Analytical Solutions}
+
+    \medskip
+
+    So we have $-\phi''+4\phi = f$ on $0 \leq x \leq 1$ with PBC. Lets consider two cases:
+
+    \medskip
+
+    Case 1: $f_1 = x$:
+
+    \bigskip
+    So first solve $-\phi '' + 4\phi = 0$. Notice that if we
+\[
+\text{let } \phi(r) = e^{rx}, \text{ then, since } {e^{rx}}'' = r^2 e^{rx}, \text{ we have } r^2 e^{rx} - 4 e^{rx} = 0 \Rightarrow r^2 - 4 = 0 \Rightarrow r = \pm 2
+ \]
+Thus the homogeneous solution is
+\[
+\phi_h(x) = C_1 e^{2x}+C_2 e^{-2x}
+\]
+
+Now find the particular solution, try $ax+b$. Then, $\phi'' = 0$. Thus, $-0 + 4(ax+b)=x$. Eyeball it, then $4a = 1, b=0 \Rightarrow a= \frac{1}{4}$. Thus:
+\[
+\phi_r (x) = \frac{x}{4} \Rightarrow \phi(x) = C_1 e^{2x}+ C_2 e^{-2x}+ \frac{x}{4}
+\]
+    
+Apply PBC:
+
+\[
+C_1+C_2 =C_1 e^2 + C_2 e^{-2}+\frac{1}{4} \text{ and } 2C_1-2C_2 =2C_1 e^2- 2C_2e^{-2} \text{ or } C_1(1-e^2) = C_2(1-e^{-2})
+\]
+So we have 
+\[
+C_1(1-e^2) +C_2(1-e^{-2})= \frac{1}{4} \text{ and }C_1(1-e^2)-C_2(1-e^{-2})=0
+\]
+Let $a= C_1(1-e^2)$ and $b= C_2(1-e^{-2})$. Then,
+\[
+a+b=\frac{1}{4} \text{ and }a-b=0 \Rightarrow a=b \Rightarrow 2a = \frac{1}{4}\Rightarrow 2C_1(1-e^2) = \frac{1}{4} \Rightarrow C_1 = \frac{1}{8(1-e^2)}
+\]
+and similarly,
+\[
+b= \frac{1}{8} \Rightarrow C_2 (1-e^{-2})= \frac{1}{8} \Rightarrow C_2 = \frac{1}{8(1-e^{-2})}
+\]
+
+\newpage
+
+Case 2: $f_2 = \sin(\pi x)$:
+
+Eyeball it, consider $\phi_p = A\sin(\pi x) + B\cos(\pi x) \Rightarrow \phi_p '' = -A \pi^2 \sin(\pi x) - B\pi^2\cos(\pi x) \Rightarrow $
+
+\[
+\phi_p '' - 4\phi_p = (\pi^2+4)(A\sin(\pi x) +B\cos(\pi x) ) \Rightarrow A= \frac{1}{\pi^2 + 4}, B=0
+\]
+Thus
+\[
+\phi (x) = C_1 e^{2x}+ C_2e^{-2x}+ \frac{\sin(\pi x)}{\pi^2 +4}
+\]
+
+Apply PBC:
+
+\[
+C_1 +C_2 = C_1e^{2}+C_2e^{-2} \Rightarrow (1-e^2)C_1 + (1-e^{-2})C_2 = 0
+\]
+and
+\[
+2C_1 -2C_2+\frac{\pi }{\pi^2 +4}= 2C_1e^2 - 2C_2e^{-2}- \frac{\pi}{\pi^2+4} \Rightarrow  2C_1(1-e^2)+2C_2(e^{-2}-1)= -\frac{2\pi}{\pi^2+4} 
+\]
+\[
+\Rightarrow C_1(1-e^2) +C_2(e^{-2}-1)= -\frac{\pi}{\pi^2 +4} \Rightarrow C_1(1-e^2) - C_2(1-e^{-2})= -\frac{\pi}{\pi^2+4}
+\]
+Ok now solve for $C_1,C_2:$
+
+\medskip
+
+Let $a= C_1(1-e^2), b= C_2(1-e^{-2})$. So we have:
+\[
+a+b=0\text{ and }a-b = -\frac{\pi}{\pi^2 +4} \Rightarrow -b=a \Rightarrow 2a = \frac{-\pi}{\pi^2+4} \Rightarrow a= \frac{-\pi}{2(\pi^2+4)}
+\]
+So,
+\[
+C_1(1-e^2) = \frac{-\pi }{2(\pi^2+4)}\Rightarrow C_1 = \frac{-\pi}{2(\pi^2+4)(1-e^2)}= \frac{\pi}{2(\pi^2+4)(e^2-1)}
+\]
+then,
+\[
+a+b= 0 \Rightarrow b= \frac{\pi}{2(\pi^2+4)} \Rightarrow C_2(1-e^{-2})= \frac{\pi}{2(\pi^2+4)}\Rightarrow C_2 = \frac{\pi}{2(\pi^2+4)(1-e^{-2})}
+\]
+
+    \newpage
+
+    \textbf{Numerical Solutions:}
+
+    \medskip
+
+    We now solve numerically using a finite difference scheme:
+
+    \medskip
+
+    Let $N=2^q$. Then, we have $h = \frac{1}{N}$, $x_j = jh$, $0 \leq j \leq N-1$.
+
+    \medskip
+
+    Then use what was described in notes:
+    \[
+    \phi_j''\approx \frac{\phi_{j+1}-2\phi_j+\phi_{j-1}}{h^2} \Rightarrow -\frac{\phi_{j+1}-2\phi_j+\phi_{j-1}}{h^2}+ 4\phi_j \approx f_j
+    \]
+    Notice
+    \[
+    f_j \approx (4+\frac{2}{h^2})\phi_j + -\frac{1}{h^2}(\phi_{j+1}+\phi_{j-1}) \Rightarrow h^2f_j \approx (4h^2+2)\phi_j -\phi_{j-1}-\phi_{j+1}
+    \]
+    Then we have the matrix:
+    \[
+    A = \frac{1}{h^2}\begin{bmatrix}2+4h^2 &-1 & \cdots & -1\\ -1 & 2+4h^2 & &-1\\ & & \ddots \\-1 & \cdots & &2+4h^2\end{bmatrix}
+    \]
+
+    Then we have $Au=f$, solve for $u$. Observe we have that by the notes, $AF^*_N = F_N^* D, D = \text{diag}(\lambda_0 , \cdots, \lambda_{N-1}), \lambda_n = 4 + \frac{4 \sin^2(\pi n h)}{h^2}$. Thus we have $A = F_N^* D F_N$.
+
+    \medskip
+
+    So we have $u = A^{-1}f= F_N^* D^{-1}F_N$.
+
+    \medskip
+
+    \textbf{Note:} I omitted the numerical solutions for the other two for brevity. They follow roughly the same idea; the point is that you end up with eigenvalues that you can then use in Python/MATLAB as part of the $F_N^*D^{-1}F_N$ form to get $u$.
+
+    \medskip
+
+    For more precise explanations and/or notes on these numerical methods, I'd recommend checking out Robert Krasny's page and looking at his lecture notes under Math 671b.
+    
+    \newpage
+
+    \textbf{Plotting errors and rates of convergence:}
+
+    \medskip
+
+    For brevity, we'll only include finite difference and Green's function. Last I checked, I got the following numbers:
+
+    \medskip
+
+    $f(x)=x$, method: finite difference
+    \[
+        \begin{array}{c|c|c|c|c}
+        q & N & h & \text{error} & p  \\ \hline
+        2 & 4 & 0.25 & \approx 0.04003 & - \\
+        3 & 8 & 0.125 & \approx0.02038 & 0.974  \\
+        4 & 16 & 0.0625 & \approx0.01024 & 0.993 \\
+        5 & 32 & 0.03125 & \approx 0.00512 & 0.998 \\
+        6 & 64 & 0.015625 & \approx 0.00256 & 1.000  \\
+        7 & 128 & 0.0078125& \approx0.00128 & 1.000 
+        \end{array}
+    \]
+
+    $f(x)=\sin(\pi x)$, method: finite difference
+    \[
+        \begin{array}{c|c|c|c|c}
+        q & N & h & \text{error} & p  \\ \hline
+        2 & 4 & 0.25 & \approx 0.01323 & - \\
+        3 & 8 & 0.125 & \approx0.00338 & 1.967  \\
+        4 & 16 & 0.0625 & \approx0.00085 & 1.992 \\
+        5 & 32 & 0.03125 & \approx 0.00021 & 1.998 \\
+        6 & 64 & 0.015625 & \approx 5.3281  \times 10^{-5} & 1.999  \\
+        7 & 128 & 0.0078125 & \approx 1.3321 \times 10^{-5} & 2.000 
+        \end{array}
+    \]
+
+    $f(x)=x$, method: Green's function
+    \[
+        \begin{array}{c|c|c|c|c}
+        q & N & h & \text{error} & p  \\ \hline
+        2 & 4 & 0.25 & \approx 0.03843 & - \\
+        3 & 8 & 0.125 & \approx0.01986 & 0.952  \\
+        4 & 16 & 0.0625 & \approx0.01009 & 0.977 \\
+        5 & 32 & 0.03125 & \approx 0.00508 &  0.988 \\
+        6 & 64 & 0.015625 & \approx 0.00255& 0.994 \\
+        7 & 128 & 0.0078125& \approx 0.00127 & 0.997 
+        \end{array}
+    \]
+
+    $f(x)=\sin (\pi x)$, method: Green's function
+    \[
+        \begin{array}{c|c|c|c|c}
+        q & N & h & \text{error} & p  \\ \hline
+        2 & 4 & 0.25 & \approx 0.01071 & - \\
+        3 & 8 & 0.125 & \approx0.00268 & 1.997  \\
+        4 & 16 & 0.0625 & \approx0.00067 & 1.999 \\
+        5 & 32 & 0.03125 & \approx 0.00016 &  2.000 \\
+        6 & 64 & 0.015625 & \approx 4.1961 \times 10^{-5} & 2.000 \\
+        7 & 128 & 0.0078125& \approx 1.0490 \times 10^{-5} & 2.000 
+        \end{array}
+    \]
+
+    The main ordeal about this is that we see that across all methods, the identity function has a convergence rate of $O(h)$, not $O(h^2)$, though this is just because the identity function is not periodic, causing it to have a discontinuity when extended periodically. Also, the results are not so similar for the pseudospectral method, since it exploits smoothness that neither function has to a sufficient degree.
+    
+\end{document}
